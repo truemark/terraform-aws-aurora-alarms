@@ -25,6 +25,12 @@ variable "cpu_utilization_evaluation_periods" {
   default     = 5
 }
 
+variable "disk_queue_data_points_to_alarm" {
+  description = "The number of datapoints that must be breaching to trigger the alarm."
+  type        = number
+  default     = 10
+}
+
 variable "disk_queue_depth_threshold" {
   description = "The maximum number of outstanding IOs (read/write requests) waiting to access the disk."
   type        = number

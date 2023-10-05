@@ -134,6 +134,7 @@ locals {
     CPUUtilizationThreshold            = min(max(var.cpu_utilization_threshold, 0), 100)
     DiskQueueDepthEvaluationPeriods    = max(var.disk_queue_depth_evaluation_periods, 0)
     DiskQueueDepthThreshold            = max(var.disk_queue_depth_threshold, 0)
+    DiskQueueDataPointsToAlarm         = var.disk_queue_data_points_to_alarm
     FreeableMemoryEvaluationPeriods    = max(var.disk_queue_depth_evaluation_periods, 0)
     FreeableMemoryThreshold            = max(var.freeable_memory_threshold, 0)
     PercentFreeMemoryEvaluationPeriods = max(var.percent_free_memory_evaluation_periods, 0)
@@ -221,6 +222,7 @@ resource "aws_cloudwatch_metric_alarm" "disk_queue_depth_high" {
   for_each                  = var.db_cluster_members
   alarm_name                = "${each.key}_disk_queue_depth_high"
   comparison_operator       = "GreaterThanThreshold"
+  datapoints_to_alarm       = local.thresholds["DiskQueueDataPointsToAlarm"]
   evaluation_periods        = local.thresholds["DiskQueueDepthEvaluationPeriods"]
   metric_name               = "DiskQueueDepth"
   namespace                 = "AWS/RDS"

@@ -8,7 +8,7 @@ module "cluster_alarms" {
   version                   = "0.0.2"
   db_cluster_id             = module.essentialist.cluster_id
   db_cluster_members        = module.essentialist.cluster_members
-  sns_topic_name            = "CenterGaugeAlerts"
+  sns_topic_name            = "SNSAlerts"
   tags                      = local.tags
   cpu_utilization_threshold = 95
   swap_usage_threshold      = 2147483648

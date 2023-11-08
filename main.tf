@@ -141,6 +141,7 @@ locals {
     PercentFreeMemoryThreshold         = max(var.percent_free_memory_threshold, 0)
     FreeStorageSpaceThreshold          = max(var.free_storage_space_threshold, 0)
     SwapUsageThreshold                 = max(var.swap_usage_threshold, 0)
+    SwapUsageEvaluationPeriods         = max(var.swap_usage_evaluation_periods, 0)
   }
 }
 
@@ -284,7 +285,7 @@ resource "aws_cloudwatch_metric_alarm" "swap_usage_high" {
   for_each                  = var.db_cluster_members
   alarm_name                = "${each.key}_swap_usage_high"
   comparison_operator       = "GreaterThanThreshold"
-  evaluation_periods        = "1"
+  evaluation_periods        = local.thresholds["SwapUsageEvaluationPeriods"]
   metric_name               = "SwapUsage"
   namespace                 = "AWS/RDS"
   period                    = "60"

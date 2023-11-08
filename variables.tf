@@ -71,6 +71,12 @@ variable "swap_usage_threshold" {
   # 256 Megabyte in Byte
 }
 
+variable "swap_usage_evaluation_periods" {
+  description = "The number of periods threshold must be breached to alarm."
+  type        = number
+  default     = 5
+}
+
 variable "percent_free_memory_threshold" {
   description = "The percent of memory that is unused."
   type        = number
